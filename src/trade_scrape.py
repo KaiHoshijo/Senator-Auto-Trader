@@ -1,13 +1,17 @@
 import requests
+import constants
 from bs4 import BeautifulSoup as bs
 
-def get_data():
-    # Getting the senator trades from Capitol Trades 
-    response = requests.get("https://www.capitoltrades.com/trades")
+def get_page(num=1):
+    # Capitol trades separates page by page for past senator trades
+    # ?page= is what signifies what page, the website is on
+    response = requests.get(constants.TRADE_SITE + f"?page={num}")
     content = response.content
     # Prettifying the data through BeautifulSoup
     soup = bs(content, 'html.parser')
     return soup
+
+    
 
 def get_trade_rows(soup):
     # The data for the politician and the trade are located within the table
@@ -53,10 +57,13 @@ def get_traded(row):
 def get_trade_gap(row):
     # This is the time difference between publication and the trade
     row_td = row.find('td', attrs={'class': 'q-td q-column--reportingGap'})
-    return [row_td.find('div', attrs={'class':
-                                      'q-label'}).get_text(),
-            row_td.find('span', attrs={'class':
-                                       'reporting-gap-tier--1'}).get_text()]
+    val = row_td.contents[0].contents
+    return [val[1].get_text(), val[2].get_text()]
+
+    # return [row_td.find('div', attrs={'class':
+                                    #   'q-label'}).get_text(),
+            # row_td.find('span', attrs={'class':
+                                    #    'reporting-gap-tier--1'}).get_text()]
 
 def get_owner(row):
     # This is the person who actually owns the stock
@@ -76,4 +83,6 @@ def get_size(row):
 
 def get_price(row):
     # This is the price of the stock
-    return row.find('span', attrs={'class': 'q-field trade-price'}).get_text()
+    row_td = row.find('td', attrs={'class':
+                                 'q-td q-column--price'}).contents
+    return row_td[0].get_text().strip()
