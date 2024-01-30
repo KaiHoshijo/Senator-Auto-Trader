@@ -11,7 +11,15 @@ def get_page(num=1):
     soup = bs(content, 'html.parser')
     return soup
 
-    
+def get_max_page():
+    # Getting the page for the max page
+    response = requests.get(constants.TRADE_SITE)
+    content = response.content
+    soup = bs(content, 'html.parser')
+    # Number of pages is stored in div header with 'pagination'
+    pagination = soup.find('div', attrs={'class': 'pagination'})
+    return pagination.contents[1].get_text().split()[-1]
+
 
 def get_trade_rows(soup):
     # The data for the politician and the trade are located within the table
@@ -60,11 +68,6 @@ def get_trade_gap(row):
     val = row_td.contents[0].contents
     return [val[1].get_text(), val[2].get_text()]
 
-    # return [row_td.find('div', attrs={'class':
-                                    #   'q-label'}).get_text(),
-            # row_td.find('span', attrs={'class':
-                                    #    'reporting-gap-tier--1'}).get_text()]
-
 def get_owner(row):
     # This is the person who actually owns the stock
     row_td = row.find('td', attrs={'class': 'q-td q-column--owner'})
@@ -86,3 +89,8 @@ def get_price(row):
     row_td = row.find('td', attrs={'class':
                                  'q-td q-column--price'}).contents
     return row_td[0].get_text().strip()
+
+def get_info_on_row(row):
+    return [get_name(row), get_traded_issuer(row), get_published(row),
+            get_trade_gap(row), get_owner(row), get_type(row), get_size(row),
+            get_price(row)]
