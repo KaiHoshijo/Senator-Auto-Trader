@@ -26,7 +26,7 @@ def get_desired_info(trade):
     filingDate = trade['filingDate']
     txDate = trade['txDate']
     reportingGap = trade['reportingGap']
-    txType = trade['sell']
+    txType = trade['txType']
     assetType = trade['asset']['assetType']
     assetTicker = trade['asset']['assetTicker']
     tradeSize  = trade['size']

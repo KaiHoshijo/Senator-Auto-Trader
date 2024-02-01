@@ -8,7 +8,7 @@ def write_pages_to_file(filename):
 
 
 if __name__ == "__main__":
-    val = ts.get_page(1, 0)
+    val = ts.get_page(3, 10)
     val = json.loads(val)
-    print(val['data'][0])
-    print(val['data'][0].keys())
+    for i in val['data']:
+        print(ts.get_desired_info(i))
