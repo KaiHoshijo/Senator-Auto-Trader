@@ -21,32 +21,6 @@ For each row (each one represents its own trade), there are the following column
     - Size -- The size of trade being sold, which ranges from 1K up to 50M
     - Price -- The price of the stock
 ---
-# How is the columns stored within the actual website?
-On the website, each row is stored within a tr header with the class 'q-tr.'
-The following is how each column is stored within the website:
-    - Politician -- h3 with class 'q-fieldset politician-name' with the name
-                    in the preceding a header
-    - Traded Issuer -- h3 with class 'q-fieldset issuer-name' with the name
-                       in the preceding a header. Additionally, the ticker
-                       is stored in span header with class
-                       'q-field issuer-ticker'
-    - Published -- Within td with class 'q-td q-column--pubDate, the year is
-                   stored in a div header with class 'q-label' while the date
-                   is stored in a div header with class 'q-value'
-    - Traded -- Same as published but td has class 'q-td q-clumn--txDate'
-    - Filed After -- Within td with class 'q-td q-column--reportingGap' with
-                     the period stored in the div header with 'q-label' while a
-                     span header with class 'reporting-gap-tier--1' stores the
-                     actual amount of the designated time period 
-    - Owner -- Within td with class 'q-td q-column--owner' and stored in the
-               span header with 'q-label'
-    - Type -- Within td with class 'q-td q-column--txType' and stored in the
-              span with class 'q-field tx-type tx-type--sell/buy' where the
-              buy/sell is based on the type
-    - Size -- Within td with class 'q-td q-column--value' and stored in span
-              with class 'q-label' and posted as a range, such as 15Kû50K
-    - Price -- Within span with class 'q-field trade-price'
----
 # DISCLAIMER:
 No responsibility for if you use this and lose any money from it. Again, this
 is just an experiment to see if one could follow all the stocks being traded
