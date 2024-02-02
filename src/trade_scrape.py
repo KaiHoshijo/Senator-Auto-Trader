@@ -9,7 +9,7 @@ def get_all_pages(max_pages):
 def get_page(num=1,size=100):
     # Capitol trades separates page by page for past senator trades
     # ?page= is what signifies what page, the website is on
-    site = constants.TRADE_SITE + f"?page={num}&pageSize={size}"
+    site = constants.TRADE_SITE + f'?page={num}&pageSize={size}'
     response = requests.get(site)
     content = response.content
     return content
@@ -29,6 +29,8 @@ def get_desired_info(trade):
     txType = trade['txType']
     assetType = trade['asset']['assetType']
     assetTicker = trade['asset']['assetTicker']
-    tradeSize  = trade['size']
+    assetTicker = assetTicker if assetTicker is not None else ''
+    tradeSize = trade['size']
+    tradeSize = tradeSize if tradeSize is not None else -1
     return [name, party, pubDate, filingDate, txDate, reportingGap, txType,
             assetType, assetTicker, tradeSize]
