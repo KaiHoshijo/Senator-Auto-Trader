@@ -1,4 +1,3 @@
-Politician,Party,Publication Date,Filing Date,Trade Date,Filing Gap,Trade Type,Asset Type,Asset Ticker,Trade Size
 Mark Green,republican,2024-02-02T14:05:02Z,2024-02-01,2024-01-29,3,sell,stock,NGL:US,29916
 Deborah Wasserman Schultz,democrat,2024-02-01T14:05:02Z,2024-01-31,2024-01-08,23,buy,stock,MAG:US,802
 Deborah Wasserman Schultz,democrat,2024-02-01T14:05:02Z,2024-01-31,2024-01-05,26,sell,stock,MAG:US,800
@@ -17472,10 +17471,8 @@ Bradley Schneider,democrat,2022-08-15T13:05:12Z,2022-08-13,2021-02-08,551,sell,s
 Bradley Schneider,democrat,2022-08-15T13:05:12Z,2022-08-13,2021-12-07,249,sell,stock,TRUP:US,210
 Mary Gay Scanlon,democrat,2022-08-15T13:05:11Z,2022-08-12,2021-02-12,546,sell,stock,CTVA:US,181
 Mary Gay Scanlon,democrat,2022-08-15T13:05:11Z,2022-08-12,2021-02-12,546,sell,stock,DOW:US,138
-Mary Gay Scanlon,democrat,2022-08-15T13:05:11Z,2022-08-12,2021-02-01,557,receive,stock,DD:US,-1
 Mary Gay Scanlon,democrat,2022-08-15T13:05:11Z,2022-08-12,2021-02-12,546,sell,stock,IFF:US,60
 Mary Gay Scanlon,democrat,2022-08-15T13:05:11Z,2022-08-12,2021-02-12,546,sell,stock,ORCL:US,516
-Mary Gay Scanlon,democrat,2022-08-15T13:05:11Z,2022-08-12,2021-02-01,557,exchange,stock,IFF:US,-1
 Brian Mast,republican,2022-08-15T13:05:10Z,2022-08-12,2021-02-16,542,sell,stock,IPWR:US,1641
 Brian Mast,republican,2022-08-15T13:05:09Z,2022-08-12,2021-02-18,540,buy,stock,APHA:US,1691
 Brian Mast,republican,2022-08-15T13:05:09Z,2022-08-12,2021-08-05,372,sell,stock,ESGC:US,11428
@@ -33205,7 +33202,6 @@ Christopher Jacobs,republican,2021-09-05T00:00:00Z,2021-09-03,2021-07-15,50,sell
 Christopher Jacobs,republican,2021-09-05T00:00:00Z,2021-09-03,2021-07-15,50,buy,municipal-security,None,-1
 Christopher Jacobs,republican,2021-09-05T00:00:00Z,2021-09-03,2021-06-23,72,buy,municipal-security,None,-1
 Christopher Jacobs,republican,2021-09-05T00:00:00Z,2021-09-03,2021-02-03,212,buy,municipal-security,None,-1
-Christopher Jacobs,republican,2021-09-05T00:00:00Z,2021-09-03,2021-02-01,214,buy,municipal-security,None,-1
 Christopher Jacobs,republican,2021-09-05T00:00:00Z,2021-09-03,2021-07-01,64,exchange,stock,DTE:US,-1
 Donald Beyer,democrat,2021-09-04T00:00:00Z,2021-09-02,2021-08-03,30,sell,mutual-fund,TDDXX:US,8001
 Donald Beyer,democrat,2021-09-04T00:00:00Z,2021-09-02,2021-08-02,31,buy,mutual-fund,TDDXX:US,8001
@@ -33234,11 +33230,6 @@ Alan Lowenthal,democrat,2021-09-01T00:00:00Z,2021-08-30,2021-08-13,17,buy,stock,
 Alan Lowenthal,democrat,2021-09-01T00:00:00Z,2021-08-30,2021-08-16,14,buy,stock,LZ:US,236
 Alan Lowenthal,democrat,2021-09-01T00:00:00Z,2021-08-30,2021-08-10,20,buy,corporate-bond,KHC:US,-1
 David Rouzer,republican,2021-09-01T00:00:00Z,2021-08-30,2021-08-19,11,sell,stock,MO:US,166
-Diana Harshbarger,republican,2021-08-29T00:00:00Z,2021-08-27,2021-02-01,207,buy,other-investment-fund,None,-1
-Diana Harshbarger,republican,2021-08-29T00:00:00Z,2021-08-27,2021-02-01,207,sell,stock,KLAC:US,28
-Diana Harshbarger,republican,2021-08-29T00:00:00Z,2021-08-27,2021-02-01,207,sell,stock,KLAC:US,28
-Diana Harshbarger,republican,2021-08-29T00:00:00Z,2021-08-27,2021-02-01,207,sell,stock,KLAC:US,28
-Diana Harshbarger,republican,2021-08-29T00:00:00Z,2021-08-27,2021-02-01,207,buy,other-investment-fund,None,-1
 Diana Harshbarger,republican,2021-08-29T00:00:00Z,2021-08-27,2021-02-02,206,buy,stock,STLA:US,506
 Diana Harshbarger,republican,2021-08-29T00:00:00Z,2021-08-27,2021-02-02,206,buy,stock,TMUS:US,61
 Diana Harshbarger,republican,2021-08-29T00:00:00Z,2021-08-27,2021-02-02,206,buy,stock,STLA:US,506
@@ -34130,11 +34121,6 @@ Frank Pallone,democrat,2021-08-18T00:00:00Z,2021-08-16,2021-08-11,5,sell,stock,C
 Frank Pallone,democrat,2021-08-18T00:00:00Z,2021-08-16,2021-08-11,5,sell,stock,D:US,105
 Frank Pallone,democrat,2021-08-18T00:00:00Z,2021-08-16,2021-08-11,5,sell,stock,PM:US,81
 Frank Pallone,democrat,2021-08-18T00:00:00Z,2021-08-16,2021-08-11,5,sell,stock,PM:US,81
-Diana Harshbarger,republican,2021-08-18T00:00:00Z,2021-08-16,2021-02-01,196,buy,other-investment-fund,None,-1
-Diana Harshbarger,republican,2021-08-18T00:00:00Z,2021-08-16,2021-02-01,196,buy,other-investment-fund,None,-1
-Diana Harshbarger,republican,2021-08-18T00:00:00Z,2021-08-16,2021-02-01,196,sell,stock,KLAC:US,28
-Diana Harshbarger,republican,2021-08-18T00:00:00Z,2021-08-16,2021-02-01,196,sell,stock,KLAC:US,28
-Diana Harshbarger,republican,2021-08-18T00:00:00Z,2021-08-16,2021-02-01,196,sell,stock,KLAC:US,28
 Diana Harshbarger,republican,2021-08-18T00:00:00Z,2021-08-16,2021-02-02,195,buy,stock,STLA:US,506
 Diana Harshbarger,republican,2021-08-18T00:00:00Z,2021-08-16,2021-02-02,195,buy,stock,STLA:US,506
 Diana Harshbarger,republican,2021-08-18T00:00:00Z,2021-08-16,2021-02-02,195,buy,stock,STLA:US,506
@@ -37729,7 +37715,6 @@ Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-08,66,buy,stock,AA
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-05,69,sell,stock,CCL:US,376
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-08,66,buy,stock,CCL:US,371
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-16,58,sell,stock,CCL:US,357
-Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-01,73,buy,stock,CHWY:US,79
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-08,66,buy,stock,CHWY:US,302
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-05,69,sell,stock,CHWY:US,73
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-05,69,sell,stock,CHWY:US,73
@@ -37744,7 +37729,6 @@ Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-16,58,buy,stock,FD
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-12,62,sell,stock,FDX:US,286
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-05,69,buy,stock,IBM:US,67
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-04,70,sell,stock,IBM:US,67
-Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-01,73,buy,stock,KR:US,238
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-16,58,buy,stock,LMND:US,205
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-12,62,sell,stock,MCD:US,153
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-19,55,sell,stock,MET:US,143
@@ -37755,7 +37739,6 @@ Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-12,62,sell,stock,P
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-19,55,buy,stock,PTON:US,58
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-19,55,buy,stock,PTON:US,58
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-08,66,buy,stock,PTON:US,56
-Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-01,73,buy,stock,PFE:US,224
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-19,55,sell,stock,PFE:US,233
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-19,55,buy,stock,R:US,122
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-19,55,sell,stock,SNAP:US,123
@@ -37771,8 +37754,6 @@ Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-16,58,buy,stock,TR
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-19,55,sell,stock,UAL:US,167
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-12,62,sell,stock,UAL:US,183
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-19,55,buy,stock,VRM:US,163
-Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-01,73,buy,stock,VRM:US,199
-Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-01,73,buy,stock,VRM:US,199
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-09,65,sell,stock,VRM:US,162
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-04,70,sell,stock,VRM:US,187
 Marie Newman,democrat,2021-04-17T00:00:00Z,2021-04-15,2021-02-09,65,buy,stock,VRM:US,162
@@ -38094,9 +38075,7 @@ Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-11,47,sell,mun
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-25,33,sell,stock,ETN:US,62
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-26,32,sell,stock,RHI:US,418
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-02,56,sell,stock,TRN:US,1122
-Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-01,57,sell,municipal-security,None,-1
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-05,53,sell,stock,TCEHY:US,794
-Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-01,57,sell,municipal-security,None,-1
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-26,32,sell,stock,BRK/B:US,728
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-11,47,buy,mutual-fund,PAIDX:US,74926
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-18,40,buy,stock,META:US,651
@@ -38121,9 +38100,7 @@ Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-11,47,sell,mun
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-25,33,sell,stock,ETN:US,251
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-26,32,sell,stock,RHI:US,418
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-02,56,sell,stock,TRN:US,1122
-Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-01,57,sell,municipal-security,None,-1
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-05,53,sell,stock,TCEHY:US,794
-Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-01,57,sell,municipal-security,None,-1
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-26,32,sell,stock,BRK/B:US,728
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-17,41,buy,stock,CVS:US,2408
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-02,56,buy,stock,CVS:US,2437
@@ -38133,7 +38110,6 @@ Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-16,42,buy,stoc
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-12,46,buy,stock,NFG:US,740
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-23,35,buy,stock,NFG:US,175
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-02,56,sell,reit,BRX:US,4351
-Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-01,57,sell,stock,VIAC:US,3345
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-17,41,sell,stock,VIAC:US,2870
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-17,41,buy,stock,CVS:US,448
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-02,56,buy,stock,CVS:US,453
@@ -38143,7 +38119,6 @@ Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-16,42,buy,stoc
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-12,46,buy,stock,NFG:US,182
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-23,35,buy,stock,NFG:US,175
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-02,56,sell,reit,BRX:US,1886
-Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-01,57,sell,stock,VIAC:US,622
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-17,41,sell,stock,VIAC:US,1230
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-02,56,sell,stock,SFE:US,994
 Michael McCaul,republican,2021-04-01T00:00:00Z,2021-03-30,2021-02-02,56,sell,stock,SFE:US,994
@@ -38442,8 +38417,6 @@ Peter Meijer,republican,2021-03-18T00:00:00Z,2021-03-16,2021-02-17,27,sell,stock
 Peter Meijer,republican,2021-03-18T00:00:00Z,2021-03-16,2021-02-16,28,sell,stock,ZG:US,40
 Peter Meijer,republican,2021-03-18T00:00:00Z,2021-03-16,2021-02-16,28,sell,stock,Z:US,41
 Peter Meijer,republican,2021-03-18T00:00:00Z,2021-03-16,2021-02-16,28,sell,stock,ZTS:US,49
-Richard Blumenthal,democrat,2021-03-17T00:00:00Z,2021-03-15,2021-02-01,42,buy,other-investment-fund,None,-1
-Richard Blumenthal,democrat,2021-03-17T00:00:00Z,2021-03-15,2021-02-01,42,sell,hedge-pvt-eq-funds-non-eif,None,-1
 Richard Blumenthal,democrat,2021-03-17T00:00:00Z,2021-03-15,2021-02-08,35,buy,other-investment-fund,None,-1
 Richard Blumenthal,democrat,2021-03-17T00:00:00Z,2021-03-15,2021-02-11,32,sell,non-public-stock,None,-1
 Richard Blumenthal,democrat,2021-03-17T00:00:00Z,2021-03-15,2021-02-12,31,buy,venture-capital,None,-1
@@ -38612,10 +38585,6 @@ Rohit Khanna,democrat,2021-03-14T00:00:00Z,2021-03-12,2021-02-23,17,buy,stock,ME
 Rohit Khanna,democrat,2021-03-14T00:00:00Z,2021-03-12,2021-02-22,18,buy,stock,META:US,31
 Rohit Khanna,democrat,2021-03-14T00:00:00Z,2021-03-12,2021-02-22,18,sell,stock,SCHW:US,128
 Rohit Khanna,democrat,2021-03-14T00:00:00Z,2021-03-12,2021-02-22,18,sell,stock,JPM:US,54
-Rohit Khanna,democrat,2021-03-14T00:00:00Z,2021-03-12,2021-02-01,39,sell,municipal-security,None,-1
-Rohit Khanna,democrat,2021-03-14T00:00:00Z,2021-03-12,2021-02-01,39,sell,municipal-security,None,-1
-Rohit Khanna,democrat,2021-03-14T00:00:00Z,2021-03-12,2021-02-01,39,sell,municipal-security,None,-1
-Rohit Khanna,democrat,2021-03-14T00:00:00Z,2021-03-12,2021-02-01,39,sell,municipal-security,None,-1
 Rohit Khanna,democrat,2021-03-14T00:00:00Z,2021-03-12,2021-02-16,24,sell,municipal-security,None,-1
 Rohit Khanna,democrat,2021-03-14T00:00:00Z,2021-03-12,2021-02-16,24,sell,municipal-security,None,-1
 Rohit Khanna,democrat,2021-03-14T00:00:00Z,2021-03-12,2021-02-16,24,sell,municipal-security,None,-1
@@ -38683,7 +38652,6 @@ Scott Peters,democrat,2021-03-13T00:00:00Z,2021-03-11,2021-02-16,23,sell,municip
 Scott Peters,democrat,2021-03-13T00:00:00Z,2021-03-11,2021-02-10,29,sell,municipal-security,None,-1
 Scott Peters,democrat,2021-03-13T00:00:00Z,2021-03-11,2021-02-10,29,sell,municipal-security,None,-1
 Scott Peters,democrat,2021-03-13T00:00:00Z,2021-03-11,2021-02-10,29,sell,municipal-security,None,-1
-Scott Peters,democrat,2021-03-13T00:00:00Z,2021-03-11,2021-02-01,38,sell,municipal-security,None,-1
 Scott Peters,democrat,2021-03-13T00:00:00Z,2021-03-11,2021-02-16,23,sell,municipal-security,None,-1
 Scott Peters,democrat,2021-03-13T00:00:00Z,2021-03-11,2021-02-10,29,sell,municipal-security,None,-1
 Scott Peters,democrat,2021-03-13T00:00:00Z,2021-03-11,2021-02-10,29,sell,municipal-security,None,-1
@@ -38769,7 +38737,6 @@ James Langevin,democrat,2021-03-12T00:00:00Z,2021-03-10,2021-02-09,29,sell,stock
 James Langevin,democrat,2021-03-12T00:00:00Z,2021-03-10,2021-02-08,30,sell,stock,PYPL:US,621
 James Langevin,democrat,2021-03-12T00:00:00Z,2021-03-10,2021-02-22,16,buy,stock-options,SQ US 03/05/21 c270,-1
 Deborah Dingell,democrat,2021-03-12T00:00:00Z,2021-03-10,2021-03-01,9,exchange,stock,EV:US,445
-Ann Wagner,republican,2021-03-12T00:00:00Z,2021-03-10,2021-02-01,37,buy,private-equity-fund,None,-1
 Patrick Toomey,republican,2021-03-11T00:00:00Z,2021-03-09,2021-02-09,28,buy,stock,PENN:US,69
 John Boozman,republican,2021-03-11T00:00:00Z,2021-03-09,2021-02-22,15,sell,etf,GSSC:US,523
 John Boozman,republican,2021-03-11T00:00:00Z,2021-03-09,2021-02-22,15,buy,etf,TLT:US,57
@@ -38881,7 +38848,6 @@ Earl Blumenauer,democrat,2021-03-05T00:00:00Z,2021-03-03,2021-02-17,14,buy,stock
 Earl Blumenauer,democrat,2021-03-05T00:00:00Z,2021-03-03,2021-02-25,6,sell,municipal-security,None,-1
 Earl Blumenauer,democrat,2021-03-05T00:00:00Z,2021-03-03,2021-02-03,28,buy,municipal-security,None,-1
 Earl Blumenauer,democrat,2021-03-05T00:00:00Z,2021-03-03,2021-02-03,28,buy,municipal-security,None,-1
-Virginia Foxx,republican,2021-03-05T00:00:00Z,2021-03-03,2021-02-01,30,buy,stock,MO:US,197
 Virginia Foxx,republican,2021-03-05T00:00:00Z,2021-03-03,2021-02-18,13,buy,stock,AM:US,4053
 Virginia Foxx,republican,2021-03-05T00:00:00Z,2021-03-03,2021-02-02,29,buy,stock,T:US,281
 Virginia Foxx,republican,2021-03-05T00:00:00Z,2021-03-03,2021-02-08,23,buy,stock,T:US,279
@@ -38920,7 +38886,6 @@ Donald Beyer,democrat,2021-03-01T00:00:00Z,2021-02-27,2021-02-19,8,buy,mutual-fu
 Donald Beyer,democrat,2021-03-01T00:00:00Z,2021-02-27,2021-02-03,24,sell,mutual-fund,TDDXX:US,8082
 Donald Beyer,democrat,2021-03-01T00:00:00Z,2021-02-27,2021-02-26,1,buy,mutual-fund,TDDXX:US,8082
 Donald Beyer,democrat,2021-03-01T00:00:00Z,2021-02-27,2021-02-02,25,sell,mutual-fund,TDDXX:US,8082
-Donald Beyer,democrat,2021-03-01T00:00:00Z,2021-02-27,2021-02-01,26,buy,mutual-fund,TDDXX:US,8082
 Donald Beyer,democrat,2021-03-01T00:00:00Z,2021-02-27,2021-02-04,23,buy,mutual-fund,TDDXX:US,8082
 Donald Beyer,democrat,2021-03-01T00:00:00Z,2021-02-27,2021-02-08,19,sell,mutual-fund,TDDXX:US,32830
 Donald Beyer,democrat,2021-03-01T00:00:00Z,2021-02-27,2021-02-25,2,buy,mutual-fund,TDDXX:US,32830
@@ -38956,28 +38921,14 @@ John Yarmuth,democrat,2021-02-21T00:00:00Z,2021-02-19,2021-02-12,7,buy,stock,ACB
 John Yarmuth,democrat,2021-02-21T00:00:00Z,2021-02-19,2021-02-12,7,buy,stock,CGC:US,199
 John Yarmuth,democrat,2021-02-21T00:00:00Z,2021-02-19,2021-02-12,7,buy,stock,CRON:US,653
 John Yarmuth,democrat,2021-02-21T00:00:00Z,2021-02-19,2021-02-12,7,buy,stock,None,277
-Katherine Castor,democrat,2021-02-20T00:00:00Z,2021-02-18,2021-02-01,17,buy,stock,BRK/B:US,36
 Katherine Castor,democrat,2021-02-20T00:00:00Z,2021-02-18,2021-02-17,1,buy,stock,BRK/B:US,34
 Robert Gibbs,republican,2021-02-20T00:00:00Z,2021-02-18,2021-02-08,10,buy,stock,IBM:US,66
 Morris Brooks,republican,2021-02-18T00:00:00Z,2021-02-16,2021-02-08,8,sell,stock,T:US,279
 Morris Brooks,republican,2021-02-18T00:00:00Z,2021-02-16,2021-02-08,8,sell,stock,CSCO:US,164
 Morris Brooks,republican,2021-02-18T00:00:00Z,2021-02-16,2021-02-08,8,sell,stock,TFC:US,152
-Morris Brooks,republican,2021-02-14T00:00:00Z,2021-02-12,2021-02-01,11,sell,municipal-security,None,-1
-Anthony Gonzalez,republican,2021-02-14T00:00:00Z,2021-02-12,2021-02-01,11,buy,stock,CHTR:US,126
-Alan Lowenthal,democrat,2021-02-12T00:00:00Z,2021-02-10,2021-02-01,9,buy,stock,BSX:US,24
 Alan Lowenthal,democrat,2021-02-12T00:00:00Z,2021-02-10,2021-02-02,8,buy,stock,BSX:US,10
-Alan Lowenthal,democrat,2021-02-12T00:00:00Z,2021-02-10,2021-02-01,9,buy,stock,BSX:US,223
 Alan Lowenthal,democrat,2021-02-12T00:00:00Z,2021-02-10,2021-02-02,8,buy,stock,BSX:US,18
-Alan Lowenthal,democrat,2021-02-12T00:00:00Z,2021-02-10,2021-02-01,9,buy,stock,BSX:US,905
 Alan Lowenthal,democrat,2021-02-12T00:00:00Z,2021-02-10,2021-02-02,8,buy,stock,BSX:US,219
-Douglas Lamborn,republican,2021-02-10T00:00:00Z,2021-02-08,2021-02-01,7,sell,stock,NTAP:US,493
-Douglas Lamborn,republican,2021-02-10T00:00:00Z,2021-02-08,2021-02-01,7,buy,stock,NTAP:US,122
-Douglas Lamborn,republican,2021-02-10T00:00:00Z,2021-02-08,2021-02-01,7,sell,stock,NTAP:US,122
-Douglas Lamborn,republican,2021-02-10T00:00:00Z,2021-02-08,2021-02-01,7,buy,stock,NTAP:US,122
-Douglas Lamborn,republican,2021-02-10T00:00:00Z,2021-02-08,2021-02-01,7,buy,stock,NTAP:US,122
-Douglas Lamborn,republican,2021-02-10T00:00:00Z,2021-02-08,2021-02-01,7,buy,stock,NTAP:US,122
-Douglas Lamborn,republican,2021-02-10T00:00:00Z,2021-02-08,2021-02-01,7,buy,stock,NTAP:US,122
-Douglas Lamborn,republican,2021-02-10T00:00:00Z,2021-02-08,2021-02-01,7,sell,stock,NTAP:US,122
 John Curtis,republican,2021-02-06T00:00:00Z,2021-02-04,2021-02-02,2,sell,stock,AMZN:US,10
 John Curtis,republican,2021-02-06T00:00:00Z,2021-02-04,2021-02-02,2,sell,stock,DOMO:US,466
 John Curtis,republican,2021-02-06T00:00:00Z,2021-02-04,2021-02-02,2,sell,stock,DIS:US,46

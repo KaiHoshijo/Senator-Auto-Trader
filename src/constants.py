@@ -5,3 +5,9 @@ TRADE_SITE = "https://bff.capitoltrades.com/trades"
 COLUMNS = ['Politician', 'Party', 'Publication Date', 'Filing Date',
            'Trade Date', 'Filing Gap', 'Trade Type', 'Asset Type',
            'Asset Ticker', 'Trade Size']
+
+# csv file name
+TRADES_CSV = 'data/trades.csv'
+
+# db file name
+TRADES_DB = 'data/trades.db'
