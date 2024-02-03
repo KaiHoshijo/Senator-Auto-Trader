@@ -15,7 +15,10 @@ def write_pages_to_file(filename, max_pages):
             for trade in page['data']:
                 writer.writerow(ts.get_desired_info(trade))
 
-if __name__ == '__main__':
+def get_all_pages():
     max_pages = ts.get_page(1, 100)
     max_pages = json.loads(max_pages)
     write_pages_to_file('data/trades.csv', ts.get_total_pages(max_pages))
+
+if __name__ == '__main__':
+    get_all_pages()
