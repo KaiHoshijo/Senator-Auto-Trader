@@ -9,11 +9,14 @@ def write_pages_to_file(filename, max_pages):
         writer = csv.writer(f)
         writer.writerow(constants.COLUMNS)
         for page_num in range(1, max_pages + 1):
-            print(f'On page: {page_num}')
-            page = ts.get_page(page_num)
-            page = json.loads(page)
-            for trade in page['data']:
-                writer.writerow(ts.get_desired_info(trade))
+            write_page(writer, page_num)
+
+def write_page(writer, page_num):
+    print(f'On page: {page_num}')
+    page = ts.get_page(page_num)
+    page = json.loads(page)
+    for trade in page['data']:
+        writer.writerow(ts.get_desired_info(trade))
 
 def get_all_pages():
     max_pages = ts.get_page(1, 100)
