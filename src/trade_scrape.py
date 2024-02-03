@@ -1,6 +1,5 @@
 import constants
 import requests
-import json
 
 def get_all_pages(max_pages):
     for num in range(1, max_pages + 1):
@@ -15,8 +14,7 @@ def get_page(num=1,size=100):
     return content
 
 def get_total_pages(content):
-    val = json.loads(content)
-    return val['meta']['paging']['totalPages']
+    return content['meta']['paging']['totalPages']
 
 def get_desired_info(trade):
     name = trade['politician']['firstName'] + ' ' \
@@ -29,7 +27,7 @@ def get_desired_info(trade):
     txType = trade['txType']
     assetType = trade['asset']['assetType']
     assetTicker = trade['asset']['assetTicker']
-    assetTicker = assetTicker if assetTicker is not None else ''
+    assetTicker = assetTicker if assetTicker is not None else 'None'
     tradeSize = trade['size']
     tradeSize = tradeSize if tradeSize is not None else -1
     return [name, party, pubDate, filingDate, txDate, reportingGap, txType,
