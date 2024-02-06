@@ -9,6 +9,8 @@ def connect_db():
     return cursor, connect
 
 def create_table(cursor):
+    # Delete table if it already exists
+    drop_table(cursor)
     # Command to create the table
     create_table = \
     '''
@@ -22,8 +24,8 @@ def create_table(cursor):
     filing_gap TEXT NOT NULL,
     trade_type TEXT NOT NULL,
     asset_type TEXT NOT NULL,
-    asset_ticker TEXT NOT NULL,
-    trade_size INTEGER NOT NULL
+    asset_ticker TEXT DEFAULT NULL,
+    trade_size INTEGER DEFAULT NULL
     );
     '''
     # Executing the command to create the table
@@ -31,37 +33,39 @@ def create_table(cursor):
 
 def drop_table(cursor):
     # Command to delete the entire table
-    drop_table = 'DROP TABLE trades;'
+    drop_table = 'DROP TABLE IF EXISTS trades;'
     cursor.execute(drop_table)
+
+def insert_db(cursor, rows):
+    # Insert each value of the csv into the database
+    insert_table = \
+    '''
+    INSERT INTO trades(
+    politician, party, publication_date, filing_date, trade_date,
+    filing_gap, trade_type, asset_type, asset_ticker, trade_size
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+    '''
+    cursor.executemany(insert_table, rows)
 
 def convert_csv_to_db(cursor):
     with open(constants.TRADES_CSV, 'r') as f:
         reader = csv.reader(f)
-        # Insert each value of the csv into the database
-        insert_table = \
-        '''
-        INSERT INTO trades(
-        politician, party, publication_date, filing_date, trade_date,
-        filing_gap, trade_type, asset_type, asset_ticker, trade_size
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-        '''
-        cursor.executemany(insert_table, reader)
+        insert_db(cursor, reader)
 
 def get_all_rows(cursor):
     # Get all the records within trades
     rows = 'SELECT * FROM trades;'
     return cursor.execute(rows).fetchall()
 
-def get_rows(cursor, cols, cond = None, vals = None):
+def get_rows(cursor, cols = ['*'], cond = None, vals = None):
     # Select only the columns passed through
     cols = ', '.join(cols)
     # Get the rows specified by the conditions
     query = f'SELECT {cols} FROM trades'
 
-    # Add the condition to the where
+    # Add the where-condition if one is specified
     if cond is not None:
         query += f' WHERE {cond}'
-        print(query)
 
     # Account for the values added for the conditions
     if vals is not None:
@@ -70,6 +74,20 @@ def get_rows(cursor, cols, cond = None, vals = None):
         cursor.execute(query)
 
     return cursor.fetchall()
+
+def delete_rows(cursor, cond = None, vals = None):
+    # Delete rows from trade without conditions
+    query = 'DELETE FROM trades'
+
+    # Add the condition for the where
+    if cond is not None:
+        query += f' WHERE {cond}'
+
+    # Execute with provided values
+    if vals is not None:
+        cursor.execute(query, vals)
+    else:
+        cursor.execute(query)
 
 def close_db(connect):
     # Finalize changes and close the connection
