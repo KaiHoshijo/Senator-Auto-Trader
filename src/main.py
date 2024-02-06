@@ -38,8 +38,8 @@ def reset_db():
     get_all_pages()
     create_db()
 
-def update_db(cursor, connect):
-    # cursor, connect = db.connect_db()
+def update_db():
+    cursor, connect = db.connect_db()
     max_pages = ts.get_page(1, 100)
     max_pages = json.loads(max_pages)
     # Get the length of the new rows
@@ -59,16 +59,7 @@ def update_db(cursor, connect):
         current_page += 1
     post = total_records - len(db.get_all_rows(cursor))
     print(f'Capitol records vs our records: {post}')
-    # db.close_db(connect)
+    db.close_db(connect)
 
 if __name__ == '__main__':
-    cursor, connect = db.connect_db()
-    cols = ['*']
-    cond = 'publication_date > ?'
-    current_date = datetime.datetime.now() \
-                    - datetime.timedelta(50)
-    current_date = current_date.strftime("%Y-%m-%dT%H:%M:%SZ")
-    vals = (current_date,)
-    db.delete_rows(cursor, cond, vals)
-    update_db(cursor, connect)
-    db.close_db(connect)
+    update_db()
