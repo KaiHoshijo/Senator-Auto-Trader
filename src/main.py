@@ -67,6 +67,17 @@ def update_db():
     print(f'Records: {post}')
     db.close_db(connect)
 
+def get_party_between_dates(cursor, party, start, end=datetime.datetime.now()):
+    cond = 'WHERE party = ? AND publication_date > ? AND publication_date < ? \
+            AND asset_type = ?'
+    vals = (party, start, end, 'stock')
+    rows = db.get_rows(cursor, cond = cond, vals = vals)
+    for row in rows:
+        sold = db.get_sold_stock(cursor, row)
+        if row[7] == 'buy' and len(sold) > 0:
+            print(row)
+            print(sold)
+
 if __name__ == '__main__':
     # Getting the updated records
     update_db()
@@ -74,22 +85,10 @@ if __name__ == '__main__':
     cursor, connect = db.connect_db()
 
     # Setting the date for the last two months
-    month = datetime.datetime.now() - datetime.timedelta(days = 60)
+    month = datetime.datetime.now() - datetime.timedelta(days = 120)
     month = datetime.datetime.strftime(month, '%Y-%m-%dT%H:%M:%SZ')
-    print(month)
- 
-    # Getting all the records for democrats over the last 2 months
-    # Additionally, it must be a stock that was purchased
-    cond = 'WHERE party = ? AND publication_date > ? AND asset_type = ?'
-    values = ('democrat', month, 'stock')
-    democrat_rows = db.get_rows(cursor, cond = cond, vals = values)
-    print(democrat_rows[0])
- 
-    # Getting all the records for republicans over the last 2 months
-    # Additionally, it must be a stock that was purchased
-    values = ('republican', month, 'stock')
-    republican_rows = db.get_rows(cursor, cond = cond, vals = values)
-    print(republican_rows[0])
+
+    get_party_between_dates(cursor, 'republican', month)
 
     # Closing db after getting data
     db.close_db(connect)

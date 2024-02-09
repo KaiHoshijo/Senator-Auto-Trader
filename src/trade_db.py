@@ -93,3 +93,17 @@ def close_db(connect):
     # Finalize changes and close the connection
     connect.commit()
     connect.close()
+
+def get_sold_stock(cursor, trade):
+    # Given when a stock is bought, find when the stock is sold and vice versa
+    name = trade[1]
+    pub_date = trade[3]
+    trade_type = trade[7]
+    trade_type = 'sell'
+    asset_ticker = trade[9]
+
+    cond = 'WHERE politician = ? AND publication_date > ? AND trade_type = ? \
+            AND asset_ticker = ?'
+    vals = (name, pub_date, trade_type, asset_ticker)
+    # print(vals)
+    return get_rows(cursor, cond = cond, vals = vals)
