@@ -44,10 +44,16 @@ def update_db():
     max_pages = json.loads(max_pages)
     # Get the length of the new rows
     total_records = max_pages['meta']['paging']['totalItems']
-    new_rows = total_records - len(db.get_all_rows(cursor))
+    total_rows = db.get_rows(cursor, ['id'], 'ORDER BY id DESC')[0][0]
+    new_rows = total_records - total_rows
     current_page = 1
     # Only update if there is at least one new trade
-    print(f'Need to update {new_rows}')
+    print(f'Total records: {total_records}')
+    print(f'Total rows: {total_rows}')
+    print(f'Need to update: {new_rows}')
+    # If the db is out of sync, reset it
+    if new_rows < 0:
+        reset_db()
     while new_rows > 0:
         # Get all the rows available on the current page
         rows = ts.get_page(current_page, min(new_rows, 100))
@@ -58,8 +64,32 @@ def update_db():
         new_rows -= 100
         current_page += 1
     post = total_records - len(db.get_all_rows(cursor))
-    print(f'Capitol records vs our records: {post}')
+    print(f'Records: {post}')
     db.close_db(connect)
 
 if __name__ == '__main__':
+    # Getting the updated records
     update_db()
+    # Connecting to the db
+    cursor, connect = db.connect_db()
+
+    # Setting the date for the last two months
+    month = datetime.datetime.now() - datetime.timedelta(days = 60)
+    month = datetime.datetime.strftime(month, '%Y-%m-%dT%H:%M:%SZ')
+    print(month)
+ 
+    # Getting all the records for democrats over the last 2 months
+    # Additionally, it must be a stock that was purchased
+    cond = 'WHERE party = ? AND publication_date > ? AND asset_type = ?'
+    values = ('democrat', month, 'stock')
+    democrat_rows = db.get_rows(cursor, cond = cond, vals = values)
+    print(democrat_rows[0])
+ 
+    # Getting all the records for republicans over the last 2 months
+    # Additionally, it must be a stock that was purchased
+    values = ('republican', month, 'stock')
+    republican_rows = db.get_rows(cursor, cond = cond, vals = values)
+    print(republican_rows[0])
+
+    # Closing db after getting data
+    db.close_db(connect)

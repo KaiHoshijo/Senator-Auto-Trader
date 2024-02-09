@@ -15,17 +15,17 @@ def create_table(cursor):
     create_table = \
     '''
     CREATE TABLE trades(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    politician TEXT NOT NULL,
-    party TEXT NOT NULL,
-    publication_date TEXT NOT NULL,
-    filing_date TEXT NOT NULL,
-    trade_date  TEXT NOT NULL,
-    filing_gap TEXT NOT NULL,
-    trade_type TEXT NOT NULL,
-    asset_type TEXT NOT NULL,
-    asset_ticker TEXT DEFAULT NULL,
-    trade_size INTEGER DEFAULT NULL
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        politician TEXT NOT NULL,
+        party TEXT NOT NULL,
+        publication_date TEXT NOT NULL,
+        filing_date TEXT NOT NULL,
+        trade_date  TEXT NOT NULL,
+        filing_gap TEXT NOT NULL,
+        trade_type TEXT NOT NULL,
+        asset_type TEXT NOT NULL,
+        asset_ticker TEXT DEFAULT NULL,
+        trade_size INTEGER DEFAULT NULL
     );
     '''
     # Executing the command to create the table
@@ -65,7 +65,7 @@ def get_rows(cursor, cols = ['*'], cond = None, vals = None):
 
     # Add the where-condition if one is specified
     if cond is not None:
-        query += f' WHERE {cond}'
+        query += f' {cond}'
 
     # Account for the values added for the conditions
     if vals is not None:
