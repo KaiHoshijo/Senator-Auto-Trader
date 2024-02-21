@@ -67,28 +67,36 @@ def update_db():
     print(f'Records: {post}')
     db.close_db(connect)
 
-def get_party_between_dates(cursor, party, start, end=datetime.datetime.now()):
-    cond = 'WHERE party = ? AND publication_date > ? AND publication_date < ? \
-            AND asset_type = ?'
-    vals = (party, start, end, 'stock')
-    rows = db.get_rows(cursor, cond = cond, vals = vals)
-    for row in rows:
-        sold = db.get_sold_stock(cursor, row)
-        if row[7] == 'buy' and len(sold) > 0:
-            print(row)
-            print(sold)
-
 if __name__ == '__main__':
     # Getting the updated records
-    update_db()
+    # update_db()
     # Connecting to the db
     cursor, connect = db.connect_db()
 
-    # Setting the date for the last two months
-    month = datetime.datetime.now() - datetime.timedelta(days = 120)
-    month = datetime.datetime.strftime(month, '%Y-%m-%dT%H:%M:%SZ')
+    # Get the date from three months ago
+    from_date = datetime.datetime.now() - datetime.timedelta(days = 150)
+    from_date = datetime.datetime.strftime(from_date, '%Y-%m-%dT%H:%M:%SZ')
 
-    get_party_between_dates(cursor, 'republican', month)
+    purchased = get_party_between_dates(cursor, 'democrat', from_date)
+
+    print("Rows for buying stocks")
+    print(len(purchased))
+    for i in range(3):
+        print(purchased[i])
+
+    print("Find duplicate purchases")
+    recurring = []
+    for i in range(len(purchased)):
+        # Find stocks, in which the politician buys multiple times
+        recurring = db.get_trade_type_stocks(cursor, purchased[i], 'buy')
+        if len(recurring) > 0:
+            for repeat in recurring:
+                sold = db.get_trade_type_stocks(cursor, purchased[i], 'sell', 
+                                                 end_date = repeat[3])
+                if len(sold) > 0:
+                    print(i, purchased[i])
+                    print('\t',sold)
+                    print('\t',recurring)
 
     # Closing db after getting data
     db.close_db(connect)
