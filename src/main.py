@@ -41,6 +41,9 @@ def create_db():
     print("Created sell")
     db.create_sell(cursor)
     db.insert_sell(cursor)
+    print("Created margin")
+    db.create_margin(cursor)
+    db.insert_margin(cursor)
     db.close_db(connect)
 
 def reset_db():
@@ -54,50 +57,40 @@ def update_db():
     max_pages = json.loads(max_pages)
     # Get the length of the new rows
     total_records = max_pages['meta']['paging']['totalItems']
-    total_rows = db.get_rows(cursor, ['id'], 'ORDER BY id DESC')[0][0]
+    print(total_records)
+    total_rows = db.get_rows(cursor, cols = ['MAX(id)'])[0][0]
+    print(total_rows)
     new_rows = total_records - total_rows
-    current_page = 1
+    print(new_rows)
+    # current_page = 1
     # Only update if there is at least one new trade
-    print(f'Total records: {total_records}')
-    print(f'Total rows: {total_rows}')
-    print(f'Need to update: {new_rows}')
+    # print(f'Total records: {total_records}')
+    # print(f'Total rows: {total_rows}')
+    # print(f'Need to update: {new_rows}')
     # If the db is out of sync, reset it
-    if new_rows < 0:
-        reset_db()
-    while new_rows > 0:
+    # if new_rows < 0:
+        # reset_db()
+    # while new_rows > 0:
         # Get all the rows available on the current page
-        rows = ts.get_page(current_page, min(new_rows, 100))
-        rows = json.loads(rows)
-        rows = tuple([ts.get_desired_info(trade) for trade in rows['data']])
-        db.insert_db(cursor, rows)
+        # rows = ts.get_page(current_page, min(new_rows, 100))
+        # rows = json.loads(rows)
+        # rows = tuple([ts.get_desired_info(trade) for trade in rows['data']])
+        # db.insert_db(cursor, rows)
         # Max number of trades available is 100
-        new_rows -= 100
-        current_page += 1
-    post = total_records - len(db.get_all_rows(cursor))
-    print(f'Records: {post}')
+        # new_rows -= 100
+        # current_page += 1
     db.close_db(connect)
-
-def get_party_between_dates(cursor, party, start, end=datetime.datetime.now()):
-    cond = 'WHERE party = ? AND publication_date > ? AND publication_date < ? \
-            AND asset_type = ? AND trade_type = ?'
-    vals = (party, start, end, 'stock', 'buy')
-    rows = db.get_rows(cursor, cond = cond, vals = vals)
-    return rows 
 
 if __name__ == '__main__':
     # Getting the updated records
-    # update_db()
+    update_db()
     # Connecting to the db
     cursor, connect = db.connect_db()
 
-    # Getting trades that match a politician's id
     query = \
-    '''
-        SELECT politician_id, p.name, publication_date, asset_ticker
-            FROM buy
-            JOIN politicians AS p ON politician_id = p.id
-            WHERE politician_id IN
-                (SELECT id FROM politicians LIMIT 5)
+    f'''
+        SELECT name, asset_ticker, buy_publication_date, sell_publication_date,
+               margin, percent_margin FROM margin
         LIMIT 5
         ;
     '''
@@ -105,6 +98,5 @@ if __name__ == '__main__':
     rows = cursor.fetchall()
     for row in rows:
         print(row)
-
     # Closing db after getting data
     db.close_db(connect)

@@ -25,7 +25,8 @@ def create_table(cursor):
         trade_type TEXT NOT NULL,
         asset_type TEXT NOT NULL,
         asset_ticker TEXT DEFAULT NULL,
-        trade_size INTEGER DEFAULT NULL
+        trade_size INTEGER DEFAULT NULL,
+        price INTEGER DEFAULT NULL
     );
     '''
     # Executing the command to create the table
@@ -39,6 +40,8 @@ def drop_table(cursor):
     cursor.execute(drop_table)
     drop_table = 'DROP TABLE IF EXISTS sell;'
     cursor.execute(drop_table)
+    drop_table = 'DROP TABLE IF EXISTS margin;'
+    cursor.execute(drop_table)
     drop_table = 'DROP TABLE IF EXISTS trades;'
     cursor.execute(drop_table)
 
@@ -48,8 +51,8 @@ def insert_db(cursor, rows):
     '''
     INSERT INTO trades(
         politician, party, publication_date, filing_date, trade_date,
-        filing_gap, trade_type, asset_type, asset_ticker, trade_size
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        filing_gap, trade_type, asset_type, asset_ticker, trade_size, price
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
     '''
     cursor.executemany(insert_table, rows)
 
@@ -92,6 +95,7 @@ def create_buy(cursor):
             filing_gap TEXT NOT NULL,
             asset_ticker TEXT DEFAULT NULL,
             trade_size INTEGER DEFAULT NULL,
+            price INTEGER DEFAULT NULL,
             FOREIGN KEY (trade_id) REFERENCES trades(id)
         )
     '''
@@ -110,10 +114,11 @@ def insert_buy(cursor):
             trade_date,
             filing_gap,
             asset_ticker,
-            trade_size
+            trade_size,
+            price
         )
         SELECT politic.id, trades.id, publication_date, filing_date,
-                trade_date, filing_gap, asset_ticker, trade_size
+                trade_date, filing_gap, asset_ticker, trade_size, price
                 FROM trades
             JOIN politicians AS politic ON politic.name = politician 
             WHERE trade_type = 'buy' AND asset_type = 'stock';
@@ -134,6 +139,7 @@ def create_sell(cursor):
             filing_gap TEXT NOT NULL,
             asset_ticker TEXT DEFAULT NULL,
             trade_size INTEGER DEFAULT NULL,
+            price INTEGER DEFAULT NULL,
             FOREIGN KEY(trade_id) REFERENCES trades(id)
         )
     '''
@@ -152,16 +158,75 @@ def insert_sell(cursor):
             trade_date,
             filing_gap,
             asset_ticker,
-            trade_size
+            trade_size,
+            price
         )
         SELECT politic.id, trades.id, publication_date, filing_date,
-                trade_date, filing_gap, asset_ticker,
+                trade_date, filing_gap, asset_ticker, trade_size, price
                 trade_size FROM trades
             JOIN politicians AS politic ON politic.name = politician
             WHERE trade_type = 'sell' AND asset_type = 'stock';
     '''
     # Executing the above command
     cursor.execute(insert_sell)
+
+def create_margin(cursor):
+    # This is the profit made from each trade from each politiican
+    create_margin = \
+    '''
+        CREATE TABLE margin(
+            politician_id INTEGER NOT NULL,
+            name TEXT NOT NULL,
+            asset_ticker TEXT DEFAULT NULL,
+            buy_trade_id INTEGER,
+            buy_publication_date TEXT NOT NULL,
+            buy_trade_size INTEGER DEFAULT NULL,
+            sell_trade_id INTEGER,
+            sell_publication_date INTEGER,
+            sell_trade_size INTEGER DEFAULT NULL,
+            margin INTEGER DEFAULT NULL,
+            percent_margin INTEGER DEFAULT NULL
+        )
+    '''
+    cursor.execute(create_margin)
+
+def insert_margin(cursor):
+    # Getting all trades where the politician buys the trade and later sells it
+    # One of the most important parts is ensuring that the sell is before any
+    # additional buys. This ensures that it is an accurate representation of
+    # the profit made from that one trade
+    insert_margin = \
+    '''
+        INSERT INTO margin(
+            politician_id,
+            name,
+            asset_ticker,
+            buy_trade_id,
+            buy_publication_date,
+            buy_trade_size,
+            sell_trade_id,
+            sell_publication_date,
+            sell_trade_size,
+            margin,
+            percent_margin
+        )
+        SELECT b.politician_id, p.name, b.asset_ticker, b.trade_id,
+               b.publication_date, b.trade_size, s.trade_id, s.publication_date,
+               s.trade_size, ROUND(s.price - b.price, 2),
+               ROUND(ROUND(s.price - b.price, 2) / b.price * 100, 2)
+            FROM buy AS b
+            JOIN politicians AS p ON b.politician_id = p.id
+            JOIN sell AS s ON s.publication_date > b.publication_date AND
+                    s.publication_date <
+                    (SELECT MIN(b1.publication_date) FROM buy AS b1
+                    WHERE s.asset_ticker = b1.asset_ticker AND
+                        b1.politician_id = s.politician_id AND
+                        b1.publication_date > b.publication_date)
+            WHERE s.asset_ticker = b.asset_ticker AND
+                  s.politician_id = b.politician_id
+        ;
+    '''
+    cursor.execute(insert_margin)
 
 def convert_csv_to_db(cursor):
     with open(constants.TRADES_CSV, 'r') as f:

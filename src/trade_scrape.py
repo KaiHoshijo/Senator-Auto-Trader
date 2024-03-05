@@ -27,8 +27,7 @@ def get_desired_info(trade):
     txType = trade['txType']
     assetType = trade['asset']['assetType']
     assetTicker = trade['asset']['assetTicker']
-    # assetTicker = assetTicker if assetTicker is not None else 'None'
     tradeSize = trade['size']
-    # tradeSize = tradeSize if tradeSize is not None else -1
+    price = trade['price']
     return [name, party, pubDate, filingDate, txDate, reportingGap, txType,
-            assetType, assetTicker, tradeSize]
+            assetType, assetTicker, tradeSize, price]
