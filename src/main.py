@@ -1,7 +1,8 @@
 import trade_scrape as ts
 import trade_db as db
 import constants
-import datetime
+import matplotlib.pyplot as plt
+import numpy as np
 import json
 import csv
 
@@ -53,32 +54,37 @@ def reset_db():
 
 def update_db():
     cursor, connect = db.connect_db()
-    max_pages = ts.get_page(1, 100)
-    max_pages = json.loads(max_pages)
-    # Get the length of the new rows
-    total_records = max_pages['meta']['paging']['totalItems']
-    print(total_records)
-    total_rows = db.get_rows(cursor, cols = ['MAX(id)'])[0][0]
-    print(total_rows)
-    new_rows = total_records - total_rows
-    print(new_rows)
-    # current_page = 1
-    # Only update if there is at least one new trade
-    # print(f'Total records: {total_records}')
-    # print(f'Total rows: {total_rows}')
-    # print(f'Need to update: {new_rows}')
-    # If the db is out of sync, reset it
-    # if new_rows < 0:
-        # reset_db()
-    # while new_rows > 0:
-        # Get all the rows available on the current page
-        # rows = ts.get_page(current_page, min(new_rows, 100))
-        # rows = json.loads(rows)
-        # rows = tuple([ts.get_desired_info(trade) for trade in rows['data']])
-        # db.insert_db(cursor, rows)
-        # Max number of trades available is 100
-        # new_rows -= 100
-        # current_page += 1
+    # Get the most recent date from the 'trades' db
+    cols = ['MAX(publication_date), politician, filing_gap']
+    db_trade = db.get_rows(cursor, 'trades', cols)[0]
+    date, politician, gap = db_trade
+    print(date, politician, gap)
+    # Get the most recent trade from capitol trades
+    page_num = 1
+    page = ts.get_page(page_num, 1)
+    page = json.loads(page)
+    ct_trade = page['data'][0]
+    ct_content = ts.get_desired_info(ct_trade)
+    ct_date = ct_content[2]
+    ct_politician = ct_content[0]
+    ct_gap = ct_content[5]
+    print(ct_date, ct_politician, ct_gap)
+    # Update the db until the most recent published trade is in the db
+    while date != ct_date and politician != ct_politician and gap != ct_gap:
+        db.insert_db(cursor, [ct_content])
+        page_num += 1
+        page = ts.get_page(page_num, 1)
+        page = json.loads(page)
+        ct_trade = page['data'][0]
+        ct_content = ts.get_desired_info(ct_trade)
+        ct_date = ct_content[2]
+        ct_politician = ct_content[0]
+        ct_gap = ct_content[5]
+        print(ct_date, ct_politician, ct_gap)
+    cols = ['MAX(publication_date), politician, filing_gap']
+    db_trade = db.get_rows(cursor, 'trades', cols)[0]
+    date, politician, gap = db_trade
+    print(date, politician, gap)
     db.close_db(connect)
 
 if __name__ == '__main__':
@@ -86,17 +92,35 @@ if __name__ == '__main__':
     update_db()
     # Connecting to the db
     cursor, connect = db.connect_db()
+    begin = "2023-01-01T00:00:00Z"
+    end   = "2024-01-01T00:00:00Z"
 
+    # Get all the trades from the last year
+    # Next, find the percentage of total profit that one could make from
+    # following these trades
     query = \
     f'''
-        SELECT name, asset_ticker, buy_publication_date, sell_publication_date,
-               margin, percent_margin FROM margin
-        LIMIT 5
-        ;
+    WITH yearly_trades AS (
+        SELECT strftime(\'%Y-%m-%d\', buy_publication_date) AS date,
+               margin, percent_margin
+            FROM margin
+            WHERE buy_publication_date BETWEEN \'{begin}\' AND \'{end}\' AND
+                  sell_publication_date BETWEEN \'{begin}\' AND \'{end}\'
+    )
+    SELECT DISTINCT yt.date,
+    (SELECT group_concat(DISTINCT also_trades.date) FROM yearly_trades AS also_trades WHERE also_trades.date <= yt.date ORDER BY also_trades.percent_margin) AS vals,
+    ROUND((SELECT SUM(also_trades.percent_margin) FROM yearly_trades AS also_trades WHERE also_trades.date <= yt.date ORDER BY also_trades.percent_margin),2) AS math
+
+        FROM yearly_trades as yt
+        GROUP BY date
+        ORDER BY date
+        LIMIT 3
+    ;
     '''
     cursor.execute(query)
     rows = cursor.fetchall()
     for row in rows:
         print(row)
+
     # Closing db after getting data
     db.close_db(connect)
