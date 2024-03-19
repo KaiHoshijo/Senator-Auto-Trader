@@ -89,37 +89,48 @@ def update_db():
 
 if __name__ == '__main__':
     # Getting the updated records
-    update_db()
+    # update_db()
     # Connecting to the db
     cursor, connect = db.connect_db()
     begin = "2023-01-01T00:00:00Z"
     end   = "2024-01-01T00:00:00Z"
 
-    # Get all the trades from the last year
-    # Next, find the percentage of total profit that one could make from
-    # following these trades
+
+    # Determining the portfolio average return through calculating the weight of 
+    # each trade (trade buy price / total prices * 100) then multiplying the 
+    # return % and taking the total sum of the results
     query = \
     f'''
     WITH yearly_trades AS (
         SELECT strftime(\'%Y-%m-%d\', buy_publication_date) AS date,
-               margin, percent_margin
+               strftime(\'%Y-%m-%d\', sell_publication_date) AS sdate,
+               margin.asset_ticker as name,
+               b.price AS price, s.price AS sprice,
+               politicians.name as pname, percent_margin
             FROM margin
+            JOIN buy AS b ON b.trade_id = margin.buy_trade_id
+            JOIN sell as s ON s.trade_id = margin.sell_trade_id
+            JOIN politicians ON b.politician_id = politicians.id
             WHERE buy_publication_date BETWEEN \'{begin}\' AND \'{end}\' AND
                   sell_publication_date BETWEEN \'{begin}\' AND \'{end}\'
+    ), return_calc AS (
+        SELECT date, sdate, name, pname, price, percent_margin, SUM(price * percent_margin) as day_total
+        FROM yearly_trades
+        GROUP BY date, sdate, name, pname, percent_margin
+    ), daily_return AS (
+        SELECT name, date,
+            (day_total / (SELECT SUM(day_total) FROM return_calc)) * 100 AS daily_return
+        FROM return_calc
     )
-    SELECT DISTINCT yt.date,
-    (SELECT group_concat(DISTINCT also_trades.date) FROM yearly_trades AS also_trades WHERE also_trades.date <= yt.date ORDER BY also_trades.percent_margin) AS vals,
-    ROUND((SELECT SUM(also_trades.percent_margin) FROM yearly_trades AS also_trades WHERE also_trades.date <= yt.date ORDER BY also_trades.percent_margin),2) AS math
-
-        FROM yearly_trades as yt
-        GROUP BY date
-        ORDER BY date
-        LIMIT 3
+    SELECT name, AVG(daily_return) AS overall_return
+    FROM daily_return
+    GROUP BY name
     ;
     '''
     cursor.execute(query)
     rows = cursor.fetchall()
-    for row in rows:
+    print(sum([row[1] for row in rows]))
+    for row in rows[:10]:
         print(row)
 
     # Closing db after getting data

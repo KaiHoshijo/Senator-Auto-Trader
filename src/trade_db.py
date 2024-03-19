@@ -221,7 +221,8 @@ def insert_margin(cursor):
                     (SELECT MIN(b1.publication_date) FROM buy AS b1
                     WHERE s.asset_ticker = b1.asset_ticker AND
                         b1.politician_id = s.politician_id AND
-                        b1.publication_date > b.publication_date)
+                        b1.publication_date > b.publication_date AND
+                        b1.publication_date > s.publication_date)
             WHERE s.asset_ticker = b.asset_ticker AND
                   s.politician_id = b.politician_id
         ;
