@@ -42,9 +42,9 @@ def create_db():
     print("Created sell")
     db.create_sell(cursor)
     db.insert_sell(cursor)
-    print("Created margin")
-    db.create_margin(cursor)
-    db.insert_margin(cursor)
+    # print("Created margin")
+    # db.create_margin(cursor)
+    # db.insert_margin(cursor)
     db.close_db(connect)
 
 def reset_db():
@@ -85,11 +85,24 @@ def update_db():
     db_trade = db.get_rows(cursor, 'trades', cols)[0]
     date, politician, gap = db_trade
     print(date, politician, gap)
+    db.drop_dependent(cursor)
+    db.create_politicians(cursor)
+    db.insert_politicians(cursor)
+    print("Created buy")
+    db.create_buy(cursor)
+    db.insert_buy(cursor)
+    print("Created sell")
+    db.create_sell(cursor)
+    db.insert_sell(cursor)
+    # print("Created margin")
+    # db.create_margin(cursor)
+    # db.insert_margin(cursor)
     db.close_db(connect)
 
 if __name__ == '__main__':
     # Getting the updated records
-    # update_db()
+    reset_db()
+    update_db()
     # Connecting to the db
     cursor, connect = db.connect_db()
     begin = "2023-01-01T00:00:00Z"
@@ -99,39 +112,39 @@ if __name__ == '__main__':
     # Determining the portfolio average return through calculating the weight of 
     # each trade (trade buy price / total prices * 100) then multiplying the 
     # return % and taking the total sum of the results
-    query = \
-    f'''
-    WITH yearly_trades AS (
-        SELECT strftime(\'%Y-%m-%d\', buy_publication_date) AS date,
-               strftime(\'%Y-%m-%d\', sell_publication_date) AS sdate,
-               margin.asset_ticker as name,
-               b.price AS price, s.price AS sprice,
-               politicians.name as pname, percent_margin
-            FROM margin
-            JOIN buy AS b ON b.trade_id = margin.buy_trade_id
-            JOIN sell as s ON s.trade_id = margin.sell_trade_id
-            JOIN politicians ON b.politician_id = politicians.id
-            WHERE buy_publication_date BETWEEN \'{begin}\' AND \'{end}\' AND
-                  sell_publication_date BETWEEN \'{begin}\' AND \'{end}\'
-    ), return_calc AS (
-        SELECT date, sdate, name, pname, price, percent_margin, SUM(price * percent_margin) as day_total
-        FROM yearly_trades
-        GROUP BY date, sdate, name, pname, percent_margin
-    ), daily_return AS (
-        SELECT name, date,
-            (day_total / (SELECT SUM(day_total) FROM return_calc)) * 100 AS daily_return
-        FROM return_calc
-    )
-    SELECT name, AVG(daily_return) AS overall_return
-    FROM daily_return
-    GROUP BY name
-    ;
-    '''
-    cursor.execute(query)
-    rows = cursor.fetchall()
-    print(sum([row[1] for row in rows]))
-    for row in rows[:10]:
-        print(row)
+    # query = \
+    # f'''
+    # WITH yearly_trades AS (
+        # SELECT buy_publication_date AS date,
+            #    sell_publication_date AS sdate,
+            #    margin.asset_ticker as name,
+            #    b.price AS price, s.price AS sprice,
+            #    politicians.name as pname, percent_margin
+            # FROM margin
+            # JOIN buy AS b ON b.trade_id = margin.buy_trade_id
+            # JOIN sell as s ON s.trade_id = margin.sell_trade_id
+            # JOIN politicians ON b.politician_id = politicians.id
+            # WHERE buy_publication_date BETWEEN \'{begin}\' AND \'{end}\' AND
+                #   sell_publication_date BETWEEN \'{begin}\' AND \'{end}\'
+    # ), return_calc AS (
+        # SELECT date, sdate, name, pname, price, percent_margin, SUM(price * percent_margin) as day_total
+        # FROM yearly_trades
+        # GROUP BY date, sdate, name, pname, percent_margin
+    # ), daily_return AS (
+        # SELECT name, date,
+            # (day_total / (SELECT SUM(day_total) FROM return_calc)) * 100 AS daily_return
+        # FROM return_calc
+    # )
+    # SELECT name, AVG(daily_return) AS overall_return, date
+    # FROM daily_return
+    # GROUP BY name
+    # ;
+    # '''
+    # cursor.execute(query)
+    # rows = cursor.fetchall()
+    # print(sum([row[1] for row in rows]))
+    # for row in rows[:10]:
+        # print(row)
 
     # Closing db after getting data
     db.close_db(connect)

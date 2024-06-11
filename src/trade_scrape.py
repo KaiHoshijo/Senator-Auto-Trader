@@ -1,5 +1,6 @@
 import constants
 import requests
+import trader
 
 def get_all_pages(max_pages):
     for num in range(1, max_pages + 1):
@@ -28,6 +29,14 @@ def get_desired_info(trade):
     assetType = trade['asset']['assetType']
     assetTicker = trade['asset']['assetTicker']
     tradeSize = trade['size']
-    price = trade['price']
+    if assetType == 'stock':
+        assetTicker = assetTicker.split(':')[0].replace('/', '.')
+        real_price = trader.get_trade(assetTicker, pubDate)
+        if real_price == -1: 
+            price = trade['price']
+        else:
+            price = real_price
+    else:
+        price = trade['price']
     return [name, party, pubDate, filingDate, txDate, reportingGap, txType,
             assetType, assetTicker, tradeSize, price]

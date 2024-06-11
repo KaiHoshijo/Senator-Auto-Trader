@@ -45,6 +45,17 @@ def drop_table(cursor):
     drop_table = 'DROP TABLE IF EXISTS trades;'
     cursor.execute(drop_table)
 
+def drop_dependent(cursor):
+    # Delete the tables dependent on trades
+    drop_table = 'DROP TABLE IF EXISTS politicians;'
+    cursor.execute(drop_table)
+    drop_table = 'DROP TABLE IF EXISTS buy;'
+    cursor.execute(drop_table)
+    drop_table = 'DROP TABLE IF EXISTS sell;'
+    cursor.execute(drop_table)
+    drop_table = 'DROP TABLE IF EXISTS margin;'
+    cursor.execute(drop_table)
+
 def insert_db(cursor, rows):
     # Insert each value of the csv into the database
     insert_table = \
