@@ -7,7 +7,7 @@ import time
 
 vbt.settings.data['alpaca']['key_id'] = constants.KEY
 vbt.settings.data['alpaca']['secret_key'] = constants.SECRET
-trader = tradeapi.REST(key_ai = constants.KEY, secret_key = constants.SECRET,
+trader = tradeapi.REST(key_id = constants.KEY, secret_key = constants.SECRET,
                        base_url = constants.ENDPOINT)
 
 def is_open(date):
@@ -43,10 +43,13 @@ def buy_stock(symbol, qty = 1, type = 'market', tif = 'gtc'):
         type = type,
         time_in_force = tif
     )
+    print(f'Bought {qty} amount of {symbol}')
     # Get the id of the stock purchased
     buy_id = buy.id
-    while not is_order_filled(symbol = symbol, stock_id = buy_id):
+    while True:
         time.sleep(1)
+        if is_order_filled(symbol, buy_id):
+            break
 
 def sell_stock(symbol, qty = 1, type = 'market', tif = 'gtc'):
     # Sell the stock at the quantity specified
@@ -57,16 +60,18 @@ def sell_stock(symbol, qty = 1, type = 'market', tif = 'gtc'):
         type = type,
         time_in_force = tif
     )
+    print(f'Sold {qty} amount of {symbol}')
     # Get the id of the stock sold
     sell_id = sell.id
-    while not is_order_filled(symbol = symbol, stock_id = sell_id):
+    while True:
         time.sleep(1)
+        if is_order_filled(symbol, sell_id):
+            break
 
 def is_order_filled(symbol, stock_id):
     # Wait until the stock has been purchased
     order = trader.get_order(stock_id)
-    stat = order.status
-    if stat.status == 'filled':
+    if order.status == 'filled':
         price = float(order.filled_avg_price)
         print(f'Symbol {symbol} has been bought at {price}')
         return True
