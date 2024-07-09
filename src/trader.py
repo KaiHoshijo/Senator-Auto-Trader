@@ -1,78 +1,65 @@
 import pandas_market_calendars as mcal
-import vectorbt as vbt
 import constants
-import datetime
-import alpaca_trade_api as tradeapi
-import time
+from alpaca.trading.client import TradingClient
+from alpaca.trading.requests import MarketOrderRequest
+from alpaca.trading.enums import OrderSide, TimeInForce
+from alpaca.common.exceptions import APIError
 
-vbt.settings.data['alpaca']['key_id'] = constants.KEY
-vbt.settings.data['alpaca']['secret_key'] = constants.SECRET
-trader = tradeapi.REST(key_id = constants.KEY, secret_key = constants.SECRET,
-                       base_url = constants.ENDPOINT)
+trading_client = TradingClient(constants.KEY, constants.SECRET, paper = True)
 
 def is_open(date):
     market = mcal.get_calendar('NYSE').schedule(start_date = date,
                                                 end_date = date)
     return market.empty == False
 
-def get_trade(symbol, date):
-    date = datetime.datetime.strptime(date, '%Y-%m-%dT%H:%M:%SZ')
-    if int(datetime.datetime.strftime(date, "%H")) > 15:
-        date = date + datetime.timedelta(days = 1)
-    # Check market at 9 AM
-    date = datetime.datetime.strftime(date, '%Y-%m-%d') + ' 09:00:00'
-    date = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
-    while not is_open(date):
-        date = date + datetime.timedelta(days = 1)
-    other = date + datetime.timedelta(days = 1)
-    # Given a date, find the price of the desired symbol
+def filter_symbol(symbol):
+    symbol = symbol.replace(':US', '')
+    return symbol
+
+def get_position(symbol):
     try:
-        data = vbt.AlpacaData.download(symbol, start = date, end = other,
-                                    timeframe = '1m')
-        return data.get("Close")[0]
-    except Exception as e:
-        print(f"Symbol {symbol} had error {e} on date {date}")
-        return -1
-    
-def buy_stock(symbol, qty = 1, type = 'market', tif = 'gtc'):
-    # Buy the stock at the quantity specified
-    buy = trader.submit_order(
-        symbol = symbol,
-        side = 'buy',
-        qty = 1,
-        type = type,
-        time_in_force = tif
-    )
-    print(f'Bought {qty} amount of {symbol}')
-    # Get the id of the stock purchased
-    buy_id = buy.id
-    while True:
-        time.sleep(1)
-        if is_order_filled(symbol, buy_id):
-            break
+        # Get a specific position owned
+        return trading_client.get_open_position(symbol)
+    except APIError:
+        return None
 
-def sell_stock(symbol, qty = 1, type = 'market', tif = 'gtc'):
-    # Sell the stock at the quantity specified
-    sell = trader.submit_order(
-        symbol = symbol,
-        side = 'sell',
-        qty = 1,
-        type = type,
-        time_in_force = tif
-    )
-    print(f'Sold {qty} amount of {symbol}')
-    # Get the id of the stock sold
-    sell_id = sell.id
-    while True:
-        time.sleep(1)
-        if is_order_filled(symbol, sell_id):
-            break
+def is_asset_tradable(symbol):
+    asset = trading_client.get_asset(symbol)
+    return asset.tradable
 
-def is_order_filled(symbol, stock_id):
-    # Wait until the stock has been purchased
-    order = trader.get_order(stock_id)
-    if order.status == 'filled':
-        price = float(order.filled_avg_price)
-        print(f'Symbol {symbol} has been bought at {price}')
-        return True
-    return False
+def buy_stock(symbol, qty = 1):
+    # Ensure that the symbol is written in the correct manner
+    symbol = filter_symbol(symbol)
+    if is_asset_tradable(symbol):
+        # raise Exception(f'{symbol} is not a tradable asset')
+        return None
+    market_order_data = MarketOrderRequest(
+        symbol = symbol,
+        qty = qty,
+        side = OrderSide.BUY,
+        time_in_force = TimeInForce.DAY
+    )
+    market_order = trading_client.submit_order(
+        order_data = market_order_data
+    )
+    return market_order
+
+def sell_stock(symbol, qty = 1):
+    # Ensure that the symbol is written in the correct manner
+    symbol = filter_symbol(symbol)
+    if is_asset_tradable(symbol):
+        # raise Exception(f'{symbol} is not a tradable asset')
+        return None
+    if get_position(symbol) is None:
+        # raise Exception(f'{symbol} is not owned')
+        return None
+    market_order_data = MarketOrderRequest(
+        symbol = symbol,
+        qty = qty,
+        side = OrderSide.SELL,
+        time_in_force = TimeInForce.GTC
+    )
+    market_order = trading_client.submit_order(
+        order_data = market_order_data
+    )
+    return market_order

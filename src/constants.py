@@ -1,5 +1,5 @@
 # Address for getting senator trades
-SENATE = 'https://efdsearch.senate.gov/search/'
+TRADES = 'https://www.capitoltrades.com/trades'
 # API keys
 KEY = ''
 SECRET = ''

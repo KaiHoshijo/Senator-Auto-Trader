@@ -1,17 +1,24 @@
 import trade_scrape as ts
 import trader
 import datetime
+from multiprocessing import Process
 
-if __name__ == '__main__':
+def get_stocks():
     # Get the current date
     current_day = datetime.datetime.today()
-    # Only trade if the market is open
     if trader.is_open(current_day):
         # Open the financial disclosures from the senate
-        driver = ts.openSenate()
-        # Enter the permissions before searching
-        ts.enterPermission(driver)
-        # Enter a date to get reports from
-        ts.enterDatesForSenate(driver, '06/15/2024', '')
-        # Get the transactions for today
-        ts.enterSearch(driver)
+        driver = ts.open_senate()
+        entries = ts.get_table(driver)
+        today_stocks = ts.get_today(entries)
+        driver.close()
+        for stock in today_stocks:
+            ticker = stock[1]
+            action = stock[2]
+            if action == 'BUY':
+                trader.buy_stock(ticker)
+            elif action == 'SELL':
+                trader.sell_stock(ticker)
+
+if __name__ == '__main__':
+    get_stocks()
