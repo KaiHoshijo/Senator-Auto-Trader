@@ -30,7 +30,7 @@ def is_asset_tradable(symbol):
 def buy_stock(symbol, qty = 1):
     # Ensure that the symbol is written in the correct manner
     symbol = filter_symbol(symbol)
-    if is_asset_tradable(symbol):
+    if not is_asset_tradable(symbol):
         # raise Exception(f'{symbol} is not a tradable asset')
         return None
     market_order_data = MarketOrderRequest(
@@ -47,7 +47,7 @@ def buy_stock(symbol, qty = 1):
 def sell_stock(symbol, qty = 1):
     # Ensure that the symbol is written in the correct manner
     symbol = filter_symbol(symbol)
-    if is_asset_tradable(symbol):
+    if not is_asset_tradable(symbol):
         # raise Exception(f'{symbol} is not a tradable asset')
         return None
     if get_position(symbol) is None:
