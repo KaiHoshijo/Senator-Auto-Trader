@@ -1,11 +1,29 @@
 import trade_scrape as ts
 import trader
+import constants
 import datetime
 import time
 
-def get_stocks():
+def buy_sell_stocks(today_stocks):
     stocks = {'buy': [], 'sell': []}
     stocks['info'] = []
+    for stock in today_stocks:
+        ticker = stock[1]
+        action = stock[2]
+        stocks['info'].append([ticker, action])
+        if action == 'BUY':
+            res = trader.buy_stock(ticker)
+            if res is not None:
+                print(f'Bought 1 of {ticker}')
+                stocks['buy'].append(ticker)
+        elif action == 'SELL':
+            res = trader.sell_stock(ticker)
+            if res is not None:
+                print(f'Sold 1 of {ticker}')
+                stocks['sell'].append(ticker)
+    return stocks
+
+def get_stocks():
     # Get the current date
     current_day = datetime.datetime.today()
     if trader.is_open(current_day):
@@ -13,24 +31,11 @@ def get_stocks():
         # Open the financial disclosures from the senate
         driver = ts.open_senate()
         driver.refresh()
-        time.sleep(15)
+        time.sleep(constants.SLEEP)
         entries = ts.get_table(driver)
         today_stocks = ts.get_today(driver, entries)
+        stocks = buy_sell_stocks(today_stocks)
         driver.close()
-        for stock in today_stocks:
-            ticker = stock[1]
-            action = stock[2]
-            stocks['info'].append([ticker, action])
-            if action == 'BUY':
-                res = trader.buy_stock(ticker)
-                if res is not None:
-                    print(f'Bought 1 of {ticker}')
-                    stocks['buy'].append(ticker)
-            elif action == 'SELL':
-                res = trader.sell_stock(ticker)
-                if res is not None:
-                    print(f'Sold 1 of {ticker}')
-                    stocks['sell'].append(ticker)
     return stocks
 
 if __name__ == '__main__':

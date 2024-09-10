@@ -4,3 +4,8 @@ TRADES = 'https://www.capitoltrades.com/trades'
 KEY = ''
 SECRET = ''
 ENDPOINT = 'https://paper-api.alpaca.markets'
+
+EXECUTABLE_PATH = '/usr/bin/chromedriver'
+
+IGNORE = 25
+SLEEP = 5
